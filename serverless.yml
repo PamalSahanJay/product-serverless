@@ -12,9 +12,7 @@ provider:
 functions:
   createProduct:
     handler: handler.createProduct
-    environment:
-      PRODUCT_TABLE_NAME: !Ref productTable
-    role: arn:aws:iam::583774065306:role/ud-1-lambda-role
+    role: ${env:IAM_ROLE} 
     events:
       - http:
           method: post
@@ -22,6 +20,8 @@ functions:
 
 plugins:
   - serverless-offline
+
+useDotenv: true
 
 package:
  individually: true
@@ -31,7 +31,7 @@ resources:
     productTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: products
+        TableName: ${env:TABLE_NAME}  
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: productId

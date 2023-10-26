@@ -1,18 +1,27 @@
 'use strict';
+require('dotenv').config();
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+const {returnFunction} = require("./statusCode")
+const documentClient = new DynamoDBClient({ region: "us-east-1" });
+const PRODUCT_TABLE_NAME = process.env.TABLE_NAME;
 
 module.exports.createProduct = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
+  let data = JSON.parse(event.body);
+  try {
+    const params = {
+      TableName: PRODUCT_TABLE_NAME,
+      Item: {
+        productId: { S: data.id },
+        modelType: { S: data.modelType },
+        doi: { S: data.doi },
       },
-      null,
-      2
-    ),
-  };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+      ConditionExpression: "attribute_not_exists(productId)",
+    };
+    const command = new PutItemCommand(params);
+    const result = await documentClient.send(command);
+    console.log(result);
+    return returnFunction(201, data)
+  } catch (error) {
+    return returnFunction(500, error.message)
+  }
 };
