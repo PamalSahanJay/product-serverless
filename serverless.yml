@@ -17,12 +17,37 @@ functions:
       - http:
           method: post
           path: product
+
   updateProduct:
     handler: handler.updateProduct
     role: ${env:IAM_ROLE}
     events:
       - http:
           method: put
+          path: product/{id}
+
+  deleteProduct:
+    handler: handler.deleteProduct
+    role: ${env:IAM_ROLE}
+    events:
+      - http:
+          method: delete
+          path: product/{id}
+
+  getAllProducts:
+    handler: handler.getAllProducts
+    role: ${env:IAM_ROLE}
+    events:
+      - http:
+          method: get
+          path: product
+
+  getProduct:
+    handler: handler.getProduct
+    role: ${env:IAM_ROLE}
+    events:
+      - http:
+          method: get
           path: product/{id}
 
 plugins:
