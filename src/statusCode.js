@@ -1,4 +1,4 @@
-const returnFunction = (statusCode, data) => {
+const statusCode = (statusCode, data) => {
     return {
         statusCode: statusCode,
         body: JSON.stringify(data),
@@ -6,5 +6,5 @@ const returnFunction = (statusCode, data) => {
 };
 
 module.exports = {
-    returnFunction
+    statusCode
 }

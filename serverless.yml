@@ -11,7 +11,7 @@ provider:
 
 functions:
   createProduct:
-    handler: handler.createProduct
+    handler: src/handler.createProduct
     role: ${env:IAM_ROLE} 
     events:
       - http:
@@ -19,7 +19,7 @@ functions:
           path: product
 
   updateProduct:
-    handler: handler.updateProduct
+    handler: src/handler.updateProduct
     role: ${env:IAM_ROLE}
     events:
       - http:
@@ -27,7 +27,7 @@ functions:
           path: product/{id}
 
   deleteProduct:
-    handler: handler.deleteProduct
+    handler: src/handler.deleteProduct
     role: ${env:IAM_ROLE}
     events:
       - http:
@@ -35,7 +35,7 @@ functions:
           path: product/{id}
 
   getAllProducts:
-    handler: handler.getAllProducts
+    handler: src/handler.getAllProducts
     role: ${env:IAM_ROLE}
     events:
       - http:
@@ -43,7 +43,7 @@ functions:
           path: product
 
   getProduct:
-    handler: handler.getProduct
+    handler: src/handler.getProduct
     role: ${env:IAM_ROLE}
     events:
       - http:
