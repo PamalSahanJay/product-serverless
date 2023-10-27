@@ -52,6 +52,7 @@ functions:
 
 plugins:
   - serverless-offline
+  - serverless-dotenv-plugin
 
 useDotenv: true
 
