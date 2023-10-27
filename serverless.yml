@@ -17,6 +17,13 @@ functions:
       - http:
           method: post
           path: product
+  updateProduct:
+    handler: handler.updateProduct
+    role: ${env:IAM_ROLE}
+    events:
+      - http:
+          method: put
+          path: product/{id}
 
 plugins:
   - serverless-offline
