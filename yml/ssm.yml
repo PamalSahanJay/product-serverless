@@ -1,0 +1,8 @@
+#application parameters
+Resources:
+  userPoolIdParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /product/dev/userPoolId
+      Type: String
+      Value: !GetAtt cognitoUserPool.Arn

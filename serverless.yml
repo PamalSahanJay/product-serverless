@@ -9,55 +9,7 @@ provider:
   stage: dev
   region: us-east-1
 
-functions:
-  authorizer:
-    handler: src/authorizer.handler
-
-  createProduct:
-    handler: src/handler.createProduct
-    events:
-      - http:
-          method: post
-          path: product
-          authorizer: authorizer
-
-  updateProduct:
-    handler: src/handler.updateProduct
-    role: ${env:IAM_ROLE}
-    events:
-      - http:
-          method: put
-          path: product/{id}
-          authorizer: authorizer
-
-  deleteProduct:
-    handler: src/handler.deleteProduct
-    role: ${env:IAM_ROLE}
-    events:
-      - http:
-          method: delete
-          path: product/{id}
-          authorizer: authorizer
-
-  getAllProducts:
-    handler: src/handler.getAllProducts
-    role: ${env:IAM_ROLE}
-    events:
-      - http:
-          method: get
-          path: product
-          authorizer:
-            name: cognito-pool
-            arn: ${env:COGNITO_POOL_ARN}
-
-  getProduct:
-    handler: src/handler.getProduct
-    role: ${env:IAM_ROLE}
-    events:
-      - http:
-          method: get
-          path: product/{id}
-          authorizer: authorizer
+functions: ${file(yml/lambda.yml)}
 
 plugins:
   - serverless-offline
@@ -68,17 +20,9 @@ useDotenv: true
 package:
  individually: true
 
-resources:
-  Resources:
-    productTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${env:TABLE_NAME}  
-        BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions:
-          - AttributeName: productId
-            AttributeType: S
-        KeySchema:
-          - AttributeName: productId
-            KeyType: HASH
+resources: 
+  - ${file(yml/table.yml)}
+  - ${file(yml/cognito.yml)}
+  - ${file(yml/ssm.yml)}
+
 

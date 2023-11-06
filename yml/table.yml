@@ -1,0 +1,13 @@
+# product table
+Resources:
+  productTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${env:TABLE_NAME}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: productId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: productId
+          KeyType: HASH
