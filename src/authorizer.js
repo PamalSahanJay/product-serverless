@@ -1,17 +1,21 @@
+const { CognitoJwtVerifier } = require("aws-jwt-verify")
+
+const createObject = {
+    userPoolId: process.env.USER_POOL_ID,
+    tokenUse: process.env.TOKEN_USE,
+    clientId: process.env.CLIENT_ID
+}
+
+const cognitoVerifier = CognitoJwtVerifier.create(createObject)
+
 module.exports.handler = async (event) => {
     var token = event.authorizationToken;
-    switch (token) {
-        case "Allow":
-            return generatePolicy("user", "Allow", event.methodArn)
-            break;
-
-        case "Deny":
-            return generatePolicy("user", "Deny", event.methodArn)
-            break;
-
-        default:
-            throw new Error;
-            break;
+    try {
+        const payload = await cognitoVerifier.verify(token)
+        console.log(JSON.stringify(payload))
+        return generatePolicy("user", "Allow", event.methodArn)
+    } catch (error) {
+        throw error
     }
 };
 
