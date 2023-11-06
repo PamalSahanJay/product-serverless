@@ -46,7 +46,9 @@ functions:
       - http:
           method: get
           path: product
-          authorizer: authorizer
+          authorizer:
+            name: cognito-pool
+            arn: ${env:COGNITO_POOL_ARN}
 
   getProduct:
     handler: src/handler.getProduct
