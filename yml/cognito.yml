@@ -1,0 +1,33 @@
+#creating user pool
+Resources:
+  cognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: MyUserPool
+
+#creating user pool client
+  cognitoUserPoolWebClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref cognitoUserPool
+      AllowedOAuthFlowsUserPoolClient: true
+      SupportedIdentityProviders:
+        - COGNITO
+      AllowedOAuthScopes:
+        - phone
+        - email
+        - profile
+        - openid
+      ClientName: web
+      AllowedOAuthFlows: 
+        - implicit
+      CallbackURLs:
+        - http://localhost:3000
+
+
+#creating user pool domain
+  cognitoUserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      UserPoolId: !Ref cognitoUserPool
+      Domain: myproductpj
