@@ -34,9 +34,9 @@ getAllProducts:
     - http:
         method: get
         path: product
-        authorizer:
-          name: cognito-pool
-          arn: ${ssm:/product/dev/userPoolId}
+        # authorizer:
+        #   name: cognito-pool
+        #   arn: ${ssm:/product/dev/userPoolId}
 
 getProduct:
   handler: src/handler.getProduct
