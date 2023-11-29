@@ -7,7 +7,7 @@ createProduct:
     - http:
         method: post
         path: product
-        authorizer: authorizer
+        # authorizer: authorizer
 
 updateProduct:
   handler: src/handler.updateProduct
@@ -16,7 +16,7 @@ updateProduct:
     - http:
         method: put
         path: product/{id}
-        authorizer: authorizer
+        # authorizer: authorizer
 
 deleteProduct:
   handler: src/handler.deleteProduct
@@ -25,7 +25,7 @@ deleteProduct:
     - http:
         method: delete
         path: product/{id}
-        authorizer: authorizer
+        # authorizer: authorizer
 
 getAllProducts:
   handler: src/handler.getAllProducts
@@ -45,4 +45,4 @@ getProduct:
     - http:
         method: get
         path: product/{id}
-        authorizer: authorizer
+        # authorizer: authorizer
