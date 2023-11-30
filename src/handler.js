@@ -38,6 +38,7 @@ module.exports.deleteProduct = async (event) => {
 module.exports.getAllProducts = async (event) => {
   try {
     const results = await DynamoDb.getAll();
+    console.log(results)
     return statusCode(200, results.Items)
   } catch (error) {
     return statusCode(500, error.message);
