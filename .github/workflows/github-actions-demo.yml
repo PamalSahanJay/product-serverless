@@ -14,14 +14,14 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-    - uses: actions/checkout@v3.3
+    - uses: actions/checkout@v3.2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - name: Install Plugin and Deploy
-      uses: serverless/github-action@v3.3
+      uses: serverless/github-action@v3.2
       with:
         args: -c "serverless plugin install --name serverless-dotenv-plugin && serverless deploy --stage prod"
         entrypoint: /bin/sh
