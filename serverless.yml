@@ -22,7 +22,5 @@ package:
 
 resources: 
   # - ${file(yml/table.yml)}
-  # - ${file(yml/cognito.yml)}
-  # - ${file(yml/ssm.yml)}
-
-
+  - ${file(yml/cognito.yml)}
+  - ${file(yml/ssm.yml)}

@@ -3,7 +3,7 @@ Resources:
   cognitoUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
-      UserPoolName: MyUserPool
+      UserPoolName: product-pool
 
 #creating user pool client
   cognitoUserPoolWebClient:
@@ -18,9 +18,14 @@ Resources:
         - email
         - profile
         - openid
-      ClientName: web
+      ClientName: product-client
       AllowedOAuthFlows: 
         - implicit
+      ExplicitAuthFlows:
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_CUSTOM_AUTH
+        - ALLOW_USER_SRP_AUTH
+        - ALLOW_ADMIN_USER_PASSWORD_AUTH
       CallbackURLs:
         - http://localhost:3000
 
@@ -30,4 +35,4 @@ Resources:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
       UserPoolId: !Ref cognitoUserPool
-      Domain: myproductpj
+      Domain: product-domain

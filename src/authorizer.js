@@ -1,3 +1,5 @@
+// we are passing token as allow or deny to demonstrate the 
+// authentication handler
 module.exports.handler = async (event) => {
     var token = event.authorizationToken;
     switch (token) {

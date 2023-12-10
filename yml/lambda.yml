@@ -3,11 +3,14 @@ authorizer:
 
 createProduct:
   handler: src/handler.createProduct
+  role: ${env:IAM_ROLE}
   events:
     - http:
         method: post
         path: product
-        # authorizer: authorizer
+        authorizer: 
+          name: cognito-pool
+          arn: ${env:COGNITO_POOL_ARN}
 
 updateProduct:
   handler: src/handler.updateProduct
@@ -16,7 +19,9 @@ updateProduct:
     - http:
         method: put
         path: product/{id}
-        # authorizer: authorizer
+        authorizer:
+          name: cognito-pool
+          arn: ${env:COGNITO_POOL_ARN}
 
 deleteProduct:
   handler: src/handler.deleteProduct
@@ -25,7 +30,9 @@ deleteProduct:
     - http:
         method: delete
         path: product/{id}
-        # authorizer: authorizer
+        authorizer:
+          name: cognito-pool
+          arn: ${env:COGNITO_POOL_ARN}
 
 getAllProducts:
   handler: src/handler.getAllProducts
@@ -34,9 +41,9 @@ getAllProducts:
     - http:
         method: get
         path: product
-        # authorizer:
-        #   name: cognito-pool
-        #   arn: ${ssm:/product/dev/userPoolId}
+        authorizer:
+          name: cognito-pool
+          arn: ${env:COGNITO_POOL_ARN}
 
 getProduct:
   handler: src/handler.getProduct
@@ -45,4 +52,4 @@ getProduct:
     - http:
         method: get
         path: product/{id}
-        # authorizer: authorizer
+        authorizer: authorizer
