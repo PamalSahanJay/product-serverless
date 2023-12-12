@@ -1,5 +1,8 @@
 authorizer:
   handler: src/authorizer.handler
+  environment:
+    COGNITO_USERPOOL_ID: !Ref cognitoUserPool
+    COGNITO_WEB_CLIENT_ID: !Ref cognitoUserPoolWebClient
 
 createProduct:
   handler: src/handler.createProduct
