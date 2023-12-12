@@ -55,4 +55,6 @@ getProduct:
     - http:
         method: get
         path: product/{id}
-        authorizer: authorizer
+        authorizer:
+          name: cognito-pool
+          arn: ${env:COGNITO_POOL_ARN}

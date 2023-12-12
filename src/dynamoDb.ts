@@ -1,11 +1,10 @@
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient, UpdateCommand, DeleteCommand, ScanCommand, GetCommand } = require("@aws-sdk/lib-dynamodb");
-const { returnFunction } = require("./statusCode");
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, UpdateCommand, DeleteCommand, ScanCommand, GetCommand } from "@aws-sdk/lib-dynamodb";
 const documentClient = new DynamoDBClient({ region: "us-east-1" });
 const docClient = DynamoDBDocumentClient.from(documentClient);
 const PRODUCT_TABLE_NAME = process.env.TABLE_NAME;
 
-const post = async (data) => {
+const post = async (data: Product) => {
     try {
         const params = {
             TableName: PRODUCT_TABLE_NAME,
@@ -23,7 +22,7 @@ const post = async (data) => {
     }
 }
 
-const put = async (productId, data) => {
+const put = async (productId : string, data : any) => {
     try {
         const params = {
             TableName: PRODUCT_TABLE_NAME,
@@ -42,7 +41,7 @@ const put = async (productId, data) => {
     }
 }
 
-const get = async (productId) => {
+const get = async (productId:string) => {
     try {
         const params = {
             TableName: PRODUCT_TABLE_NAME,
@@ -70,7 +69,7 @@ const getAll = async () => {
     }
 }
 
-const del = async (productId) => {
+const del = async (productId: string) => {
     try {
         const params = {
             TableName: PRODUCT_TABLE_NAME,
@@ -84,7 +83,7 @@ const del = async (productId) => {
     }
 }
 
-module.exports = {
+export = {
     post,
     put,
     get,
