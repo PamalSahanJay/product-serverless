@@ -1,6 +1,9 @@
 // we are passing token as allow or deny to demonstrate the 
+
+import {APIGatewayTokenAuthorizerEvent, AuthResponse } from "aws-lambda";
+
 // authentication handler
-module.exports.handler = async (event) => {
+export const handler = async (event: APIGatewayTokenAuthorizerEvent) => {
     var token = event.authorizationToken;
     switch (token) {
         case "Allow":
@@ -17,13 +20,13 @@ module.exports.handler = async (event) => {
     }
 };
 
-const generatePolicy = (principalId, effect, resource) => {
+const generatePolicy = (principalId:string, effect:string, resource:string): AuthResponse => {
     var tmp = resource.split(':')
     var apiGatewayArnTmp = tmp[5].split('/')
 
     //create wildcard resource
     var resource = tmp[0] + ":" + tmp[1] + ":" + tmp[2] + ":" + tmp[3] + ":" + tmp[4] + ":" + apiGatewayArnTmp[0] + '/*/*'
-    var authResponse = {}
+    var authResponse = {} as AuthResponse
     authResponse.principalId = principalId;
     if (effect && resource) {
         let policyDocument = {
